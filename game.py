@@ -3,17 +3,19 @@ import random
 from player import Player
 from deck import Deck
 
+card_types = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"]
+
 class Game():
 
     def __init__(self, num_players):
         # init players
         self.players = []
         for i in range(num_players):
-            player = Player(player_id=i)
+            player = Player(player_id=i, card_types=card_types)
             self.players.append(player)
 
         # init deck and hand out cards
-        deck = Deck()
+        deck = Deck(card_types)
         idx = 0
         while not deck.is_empty():
             self.players[idx].receive_card(deck.draw())

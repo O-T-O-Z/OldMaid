@@ -1,14 +1,20 @@
 import random
 
+
 class Player():
 
-    def __init__(self, player_id):
+    def __init__(self, player_id, card_types):
         self.player_id = player_id
         self.hand = []
+        self.knowledge = {}
+        for card_type in card_types:
+            self.knowledge[card_type] = set()
 
 
     # receive a card and check if you have any pairs
     def receive_card(self, new_card):
+        # need to fix this
+#        self.knowledge[new_card.id].add(new_card.card_type)
         for idx, card in enumerate(self.hand):
             if card.type == new_card.type:
                 # match found! discard and announce
