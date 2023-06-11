@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+# Specify the Jekyll version that matches GitHub Pages
+gem 'jekyll', '~> 3.9'
+
+# Specify the Minima theme
+gem 'minima', '~> 2.5'
+gem 'kramdown-parser-gfm', '~> 1.1.0'
+gem 'webrick', '~> 1.6.0'

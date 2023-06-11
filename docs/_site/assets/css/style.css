@@ -1,0 +1,10 @@
+@import "minima";
+
+.gif-container {
+    width: 100%;
+    overflow: hidden;
+}
+  
+.full-width-gif {
+    width: 100%;
+}

@@ -1,10 +1,10 @@
 lang        : "en"
 logo        : /assets/img/logo.png
-title       : Old Maid Card Game
-description : LAMAS project by Group 2.
-author      : Ömer Tarik Özyilmaz, Andreea Tudor, Nora Majeris
+title       : Old Maid Logic Project
+author      : Andreea, Nora, and Ömer
 theme       : minima
-
+minima:
+  skin : dark
 
 header_pages:
   - game.md
