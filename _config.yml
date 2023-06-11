@@ -12,7 +12,7 @@ baseurl     : "/game"
 ################################
 # Theme Settings
 ################################
-theme       : minimal-jekyll-theme
+remote_theme    : minimal-jekyll-theme
 permalink   : /:title/
 
 # Include/Exclude filetypes
