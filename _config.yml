@@ -1,23 +1,16 @@
-################################
-# Site Settings
-################################
 lang        : "en"
 logo: /assets/img/logo.png
 title       : Old Maid Card Game
 description : LAMAS project by Group 2.
 author      : Ömer Tarik Özyilmaz, Andreea Tudor, Nora Majeris
-baseurl     : "/game"
-
-
-################################
-# Theme Settings
-################################
-theme       : minimal-jekyll-theme
-permalink   : /:title/
+theme       : minima
 
 # Include/Exclude filetypes
 include:
   - _pages
 
-exclude:
-  - Gemfile
+header_pages:
+  - /pages/game.md
+  - /pages/model.md
+  - /pages/results.md
+  - /pages/references.md
