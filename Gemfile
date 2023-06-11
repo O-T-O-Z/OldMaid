@@ -1,7 +1,10 @@
 source "https://rubygems.org"
 
-# Jekyll
-gem "jekyll", "~> 3.6.0"
+gem "jekyll", "~> 3.8.4"
 
-# Theme
-gem "minimal-jekyll-theme"
+gem 'minimal-jekyll-theme', '~> 0.2.1'
+
+group :jekyll_plugins do
+    gem "jekyll-feed", "~> 0.6"
+    gem 'jekyll-compose'
+  end
