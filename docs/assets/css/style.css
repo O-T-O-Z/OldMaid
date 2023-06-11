@@ -1,9 +1,0 @@
----
----
-
-@import "{{ site.theme }}";
-
-.gif-container {
-    width: 100%;
-    overflow: hidden;
-}
