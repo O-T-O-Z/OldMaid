@@ -14,7 +14,7 @@ class Player():
     # receive a card and check if you have any pairs
     def receive_card(self, new_card):
         # need to fix this
-#        self.knowledge[new_card.id].add(new_card.card_type)
+        self.knowledge[new_card.card_type].add(new_card.id)
         for idx, card in enumerate(self.hand):
             if card.type == new_card.type:
                 # match found! discard and announce
