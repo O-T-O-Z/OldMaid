@@ -24,17 +24,17 @@ Example:
 Consider a game with 2 card types: Jack and Queen (formally, for all card identifiers x: Is(x, queen) v Is(x, jack)). Player 1 has a Jack, and must draw another one to win the game. They do not know any of the other players' cards. They then observe that PLayer 2 draws a card from Player 3, and subsequently discards two queens. PLayer 2 still has a card, specifically one with card identifier 1. The discard declares that it is not the case that Is(1, queen).
 
 Player 1 is curious to know where it can find a Jack, so it will inquire for card ids it does not know the value of, whether the card is a Jack. It will want to know if it is the case that Is(1, jack). It will put its knowledge, and the negation of its goal in a conjunction, and see if the sentence is satisfiable. In other words, it will solve the tableau with the initial list:
- Is(1, queen) v Is(1, jack)
- not Is(1, queen)
- not Is(1, jack)
- 
- It will see that the conjunction is not satisfiable, and conclude that Is(1, jack), draw that card, and win the game.
- 
- Epistemic sentences can be announced as well. For example, when an agent takes a card from another agent, that agent will know that the other agent also knows that card.
- 
- ## Research question
- In our study we would then want to investigate whether adding epistemic announcements carries useful information for an agent to perform better in the game of Old Maid.
- 
- 
- ## Experiments
- We will perform multiple experiments in which we epistemic agents against random players, as well as against non-epistemic logical agents.
+- Is(1, queen) v Is(1, jack)
+- not Is(1, queen)
+- not Is(1, jack)
+
+It will see that the conjunction is not satisfiable, and conclude that Is(1, jack), draw that card, and win the game.
+
+Epistemic sentences can be announced as well. For example, when an agent takes a card from another agent, that agent will know that the other agent also knows that card.
+
+## Research question
+In our study we would then want to investigate whether adding epistemic announcements carries useful information for an agent to perform better in the game of Old Maid.
+
+
+## Experiments
+We will perform multiple experiments in which we epistemic agents against random players, as well as against non-epistemic logical agents.
