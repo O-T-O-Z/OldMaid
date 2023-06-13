@@ -15,6 +15,7 @@ This project is done by Andreea Tudor, Nora Majeris, and Ömer Tarik Özyilmaz (
 The project is structured as follows:
 - **Game**: a description of the Old Maid card game is given, together with rules and an example game run.
 - **Model**: a description of our epistemic model and our methodology.
+- **Additional Model**: a description of our additional model and our methodology (secondary idea).
 - **Results**: the results of our experiments, together with an analysis of the outcomes.
 - **References**: the references used for this project.
 
