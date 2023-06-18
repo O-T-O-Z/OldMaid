@@ -1,5 +1,7 @@
 import random
 
+from logic_utils.formulas import *
+from logic_utils.world import *
 
 class Player():
 
@@ -14,7 +16,7 @@ class Player():
     # receive a card and check if you have any pairs
     def receive_card(self, new_card):
         # need to fix this
-        self.knowledge[new_card.card_type].add(new_card.id)
+        self.knowledge[new_card.type].add(new_card.id)
         for idx, card in enumerate(self.hand):
             if card.type == new_card.type:
                 # match found! discard and announce
