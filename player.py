@@ -3,7 +3,7 @@ import random
 from logic_utils.formulas import *
 from logic_utils.world import *
 
-class Player():
+class Player:
 
     def __init__(self, player_id, card_types):
         self.player_id = player_id
@@ -36,7 +36,8 @@ class Player():
         
 
     # your turn, choose a player and which card to take
-    def choose_card(self, active_players):
+    def choose_card(self, active_players, model):
+        # TODO: use model to choose a card
         target_player_idx = random.randint(0, len(active_players) - 1) # implement choosing
         target_player = active_players[target_player_idx]
         available_cards = target_player.present_hand()
