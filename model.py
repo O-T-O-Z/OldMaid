@@ -1,3 +1,5 @@
+import itertools
+from logic_utils.world import World
 # Example:
 # 3 players, 3 card types
 # player 1: 1, 2, 1, 3 
@@ -29,7 +31,9 @@ class Model:
         self.cards = [] # [card1, card2, ...]
         self.card_counts = {} # {card_type: count}
         self.worlds = {} # {world_id: [p1_state, p2_state, ...]}
-        self.relations = {} # {player_id: [world_id, ...]}
+        self.hand_sizes = []
+        ## might not be used
+        #self.relations = {} # {player_id: [world_id, ...]}
     
     def update_model(self, players):
         # count all cards and types in the game
@@ -37,20 +41,27 @@ class Model:
         print(self.card_counts)
 
         # these are the possible worlds
-        self.get_possible_worlds()
+        self.create_possible_worlds()
         print(self.worlds)
 
         # now get the relations that each player considers possible given their hand and knowledge
-        self.get_relations()
-        print(self.relations)
+        #self.get_relations()
+        #print(self.relations)
 
     def count_cards(self, players):
+        self.hand_sizes = [0] * len(players)
         for player in players:
             self.cards += player.hand
+            self.hand_sizes[player.player_id] = len(player.hand)
         for card in self.cards:
             self.card_counts[card.type] = self.card_counts.get(card.type, 0) + 1
 
-    def get_possible_worlds(self):
+    # an agent cannot distinguish worlds where the agent's own hand is the same
+    def exists_relation(self, agent_id, world1, world2):
+        return world1.agent_hands[agent_id] == world2.agent_hands[agent_id]
+        
+
+    def create_possible_worlds(self):
         """
         Appends to the list of all possible worlds self.worlds given the current game state.
 
@@ -64,8 +75,13 @@ class Model:
         - are identical: 1,2 <-> 2,1
         """
         # TODO
+        card_perms = itertools.permutations(self.cards)
+        unfiltered_hands = []
+        for perm in list(card_perms):
+            hands = []
         pass
     
+    # not needed
     def get_relations(self):
         """
         Appends to the list of all possible relations self.relations given the current game state.

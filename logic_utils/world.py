@@ -9,6 +9,7 @@ class World():
         self.id = world_id
         self.agent_hands = agent_hands
 
+
     # evaluate an atomic sentence in this world
     def eval_atom(self, agent, value):
         return value in self.agent_hands[agent]
