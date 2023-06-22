@@ -28,11 +28,11 @@ class Game:
 
     
     def run(self):
-        turn = random.randint(0, len(self.players) - 1)
+        active_player_idx = random.randint(0, len(self.players) - 1)
 
         while True:
             # current player chooses a move
-            active_player = self.players[turn]
+            active_player = self.players[active_player_idx]
             target_player_idx, chosen_card = active_player.choose_card(self.players, self.model)
             target_player = self.players[target_player_idx]
 
@@ -41,8 +41,8 @@ class Game:
 
             # check if any players are out
             if len(active_player.hand) == 0:
-                self.players.pop(turn)
-                turn -= 1
+                self.players.pop(active_player_idx)
+                active_player_idx -= 1
             if len(target_player.hand) == 0:
                 self.players.pop(target_player_idx)
 
@@ -52,14 +52,18 @@ class Game:
             
             # update model
             self.model.update_model(self.players)
+            self.announce_move(active_player, target_player, self.model.card_counts)
 
             # next player's turn
-            turn = (turn + 1) % len(self.players)
+            active_player_idx = (active_player_idx + 1) % len(self.players)
 
         loser = self.players[0].player_id
         print(f"Game is over. Player {loser} is the old maid!")
 
         return loser
 
-            
+    def announce_move(self, active_player, target_player, card_counts):
+        print(f"Player {active_player.player_id} took a card from player {target_player.player_id}")
+        for player in self.players:
+            player.update_knowledge(active_player, target_player, card_counts)
 

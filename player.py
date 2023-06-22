@@ -8,7 +8,11 @@ class Player:
     def __init__(self, player_id, card_types):
         self.player_id = player_id
         self.hand = []
-        self.knowledge = {}
+        self.last_given_card = None
+        # an agent knows how many cards each player has, 
+        # how many cards of each type there are, 
+        # and which cards some players have through giving away or receiving
+        self.knowledge = {"cards_per_player": {}, "card_counts": {}, "cards_of_player": {}}
         for card_type in card_types:
             self.knowledge[card_type] = set()
 
@@ -29,11 +33,26 @@ class Player:
     def present_hand(self):
         return len(self.hand)
 
-
-    # give another player one of your cards
     def give_card(self, card_idx):
+        # give another player one of your cards
+        self.last_given_card = self.hand[card_idx]
         return self.hand.pop(card_idx)
-        
+    
+    def update_knowledge(self, active_player, target_player, card_counts):
+        if self.player_id not in [active_player.player_id, target_player.player_id]:
+            self.knowledge["cards_per_player"][active_player.player_id] = active_player.present_hand()
+            self.knowledge["cards_per_player"][target_player.player_id] = target_player.present_hand()
+            self.knowledge["card_counts"] = card_counts
+
+            # agent does not know anything about the player that has given a card now
+            if active_player.player_id in self.knowledge["given_cards"]:
+                self.knowledge["cards_of_player"][active_player.player_id] = []
+        elif self.player_id == active_player.player_id:
+            # agent now knows that the target player has the card that was given away
+            self.knowledge["cards_of_player"][target_player.player_id].append(Atom(self.last_given_card.type))
+        elif self.player_id == target_player.player_id:
+            # agent now knows that the active player does not have the card that was given away
+            self.knowledge["cards_of_player"][active_player.player_id].append(Neg(self.last_given_card.type))
 
     # your turn, choose a player and which card to take
     def choose_card(self, active_players, model):
