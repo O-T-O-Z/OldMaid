@@ -5,10 +5,11 @@ is a set of card values representing the cards that an agent has
 """
 class World():
 
-    def __init__(self, world_id, agent_hands):
-        self.id = world_id
+    def __init__(self, agent_hands):
         self.agent_hands = agent_hands
 
+    def __str__(self):
+        return self.agent_hands
 
     # evaluate an atomic sentence in this world
     def eval_atom(self, agent, value):

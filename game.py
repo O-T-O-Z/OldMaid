@@ -4,7 +4,7 @@ from player import Player
 from deck import Deck
 from model import Model
 
-card_types = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace"]
+card_types = ["J", "Q", "K"]
 
 class Game:
 
@@ -25,6 +25,7 @@ class Game:
         # init model
         self.model = Model()
         self.model.update_model(self.players)
+        exit()
 
     
     def run(self):

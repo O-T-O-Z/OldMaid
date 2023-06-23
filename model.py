@@ -30,7 +30,7 @@ class Model:
     def __init__(self):
         self.cards = [] # [card1, card2, ...]
         self.card_counts = {} # {card_type: count}
-        self.worlds = {} # {world_id: [p1_state, p2_state, ...]}
+        self.worlds = [] # {world_id: [p1_state, p2_state, ...]}
         self.hand_sizes = []
         ## might not be used
         #self.relations = {} # {player_id: [world_id, ...]}
@@ -42,7 +42,7 @@ class Model:
 
         # these are the possible worlds
         self.create_possible_worlds()
-        print(self.worlds)
+        #print(self.worlds)
 
         # now get the relations that each player considers possible given their hand and knowledge
         #self.get_relations()
@@ -51,7 +51,7 @@ class Model:
     def count_cards(self, players):
         self.hand_sizes = [0] * len(players)
         for player in players:
-            self.cards += player.hand
+            self.cards += [card.type for card in player.hand]
             self.hand_sizes[player.player_id] = len(player.hand)
         for card in self.cards:
             self.card_counts[card.type] = self.card_counts.get(card.type, 0) + 1
@@ -76,10 +76,24 @@ class Model:
         """
         # TODO
         card_perms = itertools.permutations(self.cards)
-        unfiltered_hands = []
+        worlds = set()
         for perm in list(card_perms):
+            print(perm)
             hands = []
-        pass
+            card_idx = 0
+            for hand_size in self.hand_sizes:
+                hand = set(perm[card_idx:(card_idx + hand_size)])
+                card_idx += hand_size
+                # We know the hand size, so if the permutation has fewer cards, it is not a possibility
+                if len(hand) < hand_size:
+                    break
+                hands.append(tuple(hand))
+            else:
+                worlds.add(tuple(hands))
+
+        for world_tuple in worlds:
+            self.worlds.append(World([set(pl_hand) for pl_hand in list(world_tuple)]))
+        
     
     # not needed
     def get_relations(self):

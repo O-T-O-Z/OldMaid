@@ -9,7 +9,7 @@ class Deck:
         self.cards = []
         count = 0
         for card_type in card_types:
-            amount = (3 if card_type == 'queen' else 4)
+            amount = (3 if card_type == 'Q' else 4)
             for _ in range(amount):
                 new_card = Card(card_type, count)
                 self.cards.append(new_card)
