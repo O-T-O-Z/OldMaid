@@ -7,7 +7,9 @@ class Sentence():
     def __init__(self):
         pass
 
-    def eval(self, world):
+    # The world is needed to evaluate any sentence, the model only needs to be specified if there are
+    # modal connectives in the sentence
+    def eval(self, world, model=None):
         pass
 
     def assert_is_wff(self, formula):
@@ -23,7 +25,7 @@ class Atom(Sentence):
         self.agent_id = agent_id
         self.card = card_value
 
-    def eval(self, world):
+    def eval(self, world, model=None):
         return world.eval_atom(self.agent_id, self.card)
     
 
@@ -36,8 +38,8 @@ class Neg(Sentence):
         self.assert_is_wff(formula)
         self.pos_formula = formula
 
-    def eval(self, world):
-        return 1 - self.pos_formula.eval(world)
+    def eval(self, world, model=None):
+        return 1 - self.pos_formula.eval(world, model)
     
 
 """
@@ -51,10 +53,27 @@ class Or(Sentence):
             self.assert_is_wff(wff)
             self.wffs.append(wff)
 
-    def eval(self, world):
+    def eval(self, world, model=None):
         for wff in self.wffs:
-            if wff.eval(world):
+            if wff.eval(world, model):
                 return True
         return False    
         
+
+"""
+Epistemic 'K_i' connective, expects a formula and an agent which supposedly knows the formula 
+"""
+class K(Sentence):
+
+    def __init__(self, formula, agent_id):
+        self.assert_is_wff(formula)
+        self.formula = formula
+        self.agent_id = agent_id
+
+    def eval(self, world, model):
+        accessible_worlds = model.get_accessible_worlds(world, self.agent_id)
+        for other_world in accessible_worlds:
+            if not self.formula.eval(other_world, model):
+                return False
+        return True
 

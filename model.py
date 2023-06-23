@@ -89,3 +89,12 @@ class Model:
                     worlds.append(hands)
  
         self.worlds = [World(w) for w in worlds]
+
+    # returns a list of worlds that an agent can access from the given world
+    def get_accessible_worlds(self, world_from, agent):
+        accessible_worlds = []
+        for world_to in self.worlds:
+            if self.exists_relation(agent, world_from, world_to):
+                accessible_worlds.append(world_to)
+
+        return accessible_worlds
