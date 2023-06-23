@@ -3,13 +3,13 @@
 One world in the Kripke model. agent_hands should contain a list where each element
 is a set of card values representing the cards that an agent has
 """
-class World():
+class World:
 
     def __init__(self, agent_hands):
         self.agent_hands = agent_hands
 
-    def __str__(self):
-        return self.agent_hands
+    def __repr__(self):
+        return str(self.agent_hands)
 
     # evaluate an atomic sentence in this world
     def eval_atom(self, agent, value):
