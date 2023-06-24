@@ -12,7 +12,6 @@ class Player(ABC):
         self.last_given_card = None
         self.knowledge = []
 
-
     # receive a card and check if you have any pairs
     def receive_card(self, new_card):
         for idx, card in enumerate(self.hand):

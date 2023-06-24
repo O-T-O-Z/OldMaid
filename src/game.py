@@ -1,6 +1,6 @@
 import random
 
-from players import RandomPlayer, EpistPlayer
+from players import RandomPlayer, EpistemicPlayer, LogicPlayer
 from deck import Deck
 from model import Model
 
@@ -12,7 +12,7 @@ class Game:
         # init players
         self.players = []
         for i in range(num_players):
-            player = EpistPlayer(player_id=i)
+            player = EpistemicPlayer(player_id=i)
             self.players.append(player)
 
         # init deck and hand out cards

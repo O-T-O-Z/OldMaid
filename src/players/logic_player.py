@@ -2,11 +2,14 @@ from .player import Player
 import random
 from logic_utils.formulas import *
 
-class EpistPlayer(Player):
+
+class LogicPlayer(Player):
 
     def __init__(self, player_id):
         super().__init__(player_id)
-    
+        self.last_given_card = None
+        self.knowledge = []
+
     def remove_contradictions(self, fact):
         # remove facts that are contradicted by the new knowledge
         for i, p in enumerate(self.knowledge):
@@ -30,7 +33,7 @@ class EpistPlayer(Player):
             new_knowledge.append(atom)
         return new_knowledge
 
-    def add_knowledge(self, drawing_player, giving_player, current_players, discarded):
+    def add_basic_knowledge(self, drawing_player, giving_player, current_players, discarded):
         fact = None
         current_ids = [p.id for p in current_players]
         if self.id == giving_player.id and not discarded and drawing_player.id in current_ids:
@@ -55,7 +58,7 @@ class EpistPlayer(Player):
 
     def update_knowledge(self, drawing_player, giving_player, current_players, discarded):
         self.knowledge = self.prune_current_knowledge(drawing_player, giving_player, current_players, discarded)
-        self.add_knowledge(drawing_player, giving_player, current_players, discarded)
+        self.add_basic_knowledge(drawing_player, giving_player, current_players, discarded)
 
         print("Knowledge of player " + str(self.id) + ":")
         for value in self.knowledge:
@@ -97,3 +100,4 @@ class EpistPlayer(Player):
         target_card = random.randint(0, available_cards - 1)
 
         return target_player, target_card
+    

@@ -73,7 +73,7 @@ Epistemic 'K_i' connective, expects a formula and an agent which supposedly know
 """
 class K(Sentence):
 
-    def __init__(self, formula, agent_id):
+    def __init__(self, agent_id, formula):
         self.assert_is_wff(formula)
         self.formula = formula
         self.agent_id = agent_id

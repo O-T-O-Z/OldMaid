@@ -2,6 +2,8 @@ import sys
 
 from game import Game
 
+N_EXPERIMENTS = 1
+
 
 def main():
     try:
@@ -10,8 +12,12 @@ def main():
         print("Give a number of players!")
         exit()
 
-    game = Game(num_players)
-    game.run()
+    loser_hist = [0] * num_players
+    for _ in range(N_EXPERIMENTS):
+        game = Game(num_players)
+        loser_hist[game.run()] += 1
+
+    print(loser_hist)
 
 
 if __name__ == '__main__':
