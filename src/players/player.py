@@ -10,24 +10,19 @@ class Player(ABC):
         self.id = player_id
         self.hand = []
         self.last_given_card = None
-        # an agent knows how many cards each player has, 
-        # how many cards of each type there are, 
-        # and which cards some players have through giving away or receiving
-        self.knowledge = {"cards_of_player": {}}
+        self.knowledge = []
 
 
     # receive a card and check if you have any pairs
     def receive_card(self, new_card):
-        # need to fix this
-        # self.knowledge[new_card].add(new_card.id)
-        print(f"Player {self.id} received a {new_card}")
         for idx, card in enumerate(self.hand):
             if card == new_card:
                 # match found! discard and announce
                 print(f"Player {self.id} discarded a pair of {new_card}")
                 self.hand.pop(idx)
-                return
+                return new_card
         self.hand.append(new_card)
+        return None
 
 
     # show another player how many cards you have so they can pick one

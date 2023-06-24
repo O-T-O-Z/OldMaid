@@ -35,13 +35,13 @@ class Model:
         print(f"True world: {[(player.id, player.hand) for player in players]}")
         # count all cards and types in the game
         self.count_cards(players)
-        print(f"Card counts: {self.card_counts}")
+        # print(f"Card counts: {self.card_counts}")
 
         # these are the possible worlds
         self.create_possible_worlds()
-        print("Possible worlds:")
-        for world in self.worlds:
-            print(world)
+        # print("Possible worlds:")
+        # for world in self.worlds:
+        #     print(world)
 
     def count_cards(self, players):
         self.card_counts = {}

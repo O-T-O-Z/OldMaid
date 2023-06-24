@@ -4,7 +4,7 @@ from players import RandomPlayer, EpistPlayer
 from deck import Deck
 from model import Model
 
-card_types = ["J", "Q", "K", "A", "B"]
+card_types = ["J", "Q", "K", "1", "2", "3", "4"]
 
 class Game:
 
@@ -12,7 +12,7 @@ class Game:
         # init players
         self.players = []
         for i in range(num_players):
-            player = RandomPlayer(player_id=i)
+            player = EpistPlayer(player_id=i)
             self.players.append(player)
 
         # init deck and hand out cards
@@ -35,13 +35,15 @@ class Game:
 
         while True:
             print("=====================================")
-            print(f"Player {active_player.id}'s turn")
+            # print(f"Player {active_player.id}'s turn")
             # current player chooses a move
             possible_players = [player for player in self.players if player.id != active_player.id]
-            target_player, chosen_card = active_player.choose_card(possible_players)
+            target_player, chosen_card = active_player.choose_card(possible_players, self.model)
 
             # the move gets executed, some announcements should happen here
-            active_player.receive_card(target_player.give_card(chosen_card))
+            given_card = target_player.give_card(chosen_card)
+            print(f"Player {active_player.id} received a {given_card} from player {target_player.id}")
+            discarded = active_player.receive_card(given_card)
 
             # check if any players are out
             if len(active_player.hand) == 0:
@@ -56,7 +58,7 @@ class Game:
                 break
             # update model
             self.model.update_model(self.players)
-            # self.announce_move(active_player, target_player, self.model.card_counts)
+            self.announce_move(active_player, target_player, discarded)
 
             # next player's turn
             for p in filter(lambda x: x.id != active_player.id, self.players):
@@ -72,8 +74,7 @@ class Game:
         return loser
 
 
-    def announce_move(self, active_player, target_player):
-        print(f"Player {active_player.id} took a card from player {target_player.id}")
+    def announce_move(self, active_player, target_player, discarded):
         for player in self.players:
-            player.update_knowledge(active_player, target_player)
+            player.update_knowledge(active_player, target_player, self.players, discarded=discarded)
 

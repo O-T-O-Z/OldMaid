@@ -13,7 +13,7 @@ class Sentence():
         pass
 
     def assert_is_wff(self, formula):
-        if not issubclass(formula, Sentence):
+        if not issubclass(type(formula), Sentence):
             exit("Complex formulas can only be constructed from other formulas")
 
 """
@@ -24,6 +24,9 @@ class Atom(Sentence):
     def __init__(self, agent_id, card_value):
         self.agent_id = agent_id
         self.card = card_value
+
+    def __str__(self) -> str:
+        return str(self.agent_id) + " has " + str(self.card)
 
     def eval(self, world, model=None):
         return world.eval_atom(self.agent_id, self.card)
@@ -37,6 +40,11 @@ class Neg(Sentence):
     def __init__(self, formula):
         self.assert_is_wff(formula)
         self.pos_formula = formula
+        self.agent_id = formula.agent_id
+        self.card = formula.card
+
+    def __str__(self) -> str:
+        return "not " + str(self.pos_formula)
 
     def eval(self, world, model=None):
         return 1 - self.pos_formula.eval(world, model)

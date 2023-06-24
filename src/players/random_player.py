@@ -7,9 +7,8 @@ class RandomPlayer(Player):
 
     # your turn, choose a player and which card to take
     def choose_card(self, active_players):
-        # TODO: use model to choose a card
-        target_player = random.choice(active_players) # implement choosing
+        target_player = random.choice(active_players)
         available_cards = target_player.present_hand()
-        target_card = random.randint(0, available_cards - 1) # implement choosing
+        target_card = random.randint(0, available_cards - 1)
 
         return target_player, target_card
