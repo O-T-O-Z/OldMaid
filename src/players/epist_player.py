@@ -14,8 +14,8 @@ class EpistPlayer(Player):
                 self.knowledge.pop(i)
                 break
         self.knowledge.append(fact)
-
-    def update_knowledge(self, drawing_player, giving_player, current_players, discarded):
+    
+    def prune_current_knowledge(self, drawing_player, giving_player, current_players):
         new_knowledge = []
         for atom in self.knowledge:
             # remove facts about players that are no longer in the game
@@ -28,8 +28,9 @@ class EpistPlayer(Player):
             elif self.id not in [drawing_player.id, giving_player.id] and atom.agent_id == drawing_player.id and isinstance(atom, Neg):
                 continue
             new_knowledge.append(atom)
-        self.knowledge = new_knowledge
+        return new_knowledge
 
+    def add_knowledge(self, drawing_player, giving_player, current_players, discarded):
         fact = None
         if self.id == giving_player.id and not discarded and drawing_player.id in [p.id for p in current_players]:
             # agent now knows that the drawing player has the card that was given away
@@ -51,18 +52,18 @@ class EpistPlayer(Player):
             fact = Neg(Atom(giving_player.id, discarded))
             self.remove_contradictions(fact)
 
+    def update_knowledge(self, drawing_player, giving_player, current_players, discarded):
+        self.knowledge = self.prune_current_knowledge(drawing_player, giving_player, current_players)
+        self.add_knowledge(drawing_player, giving_player, current_players, discarded)
+
         print("Knowledge of player " + str(self.id) + ": " + str(self.knowledge))
         for value in self.knowledge:
             print(str(value))
 
-    # your turn, choose a player and which card to take
-    def choose_card(self, active_players, model):
-        # TODO: use model to choose a card
-        target_player = random.choice(active_players) # implement choosing
-        available_cards = target_player.present_hand()
-        target_card = random.randint(0, available_cards - 1) # implement choosing
+    def get_most_common_cards(self, model):
+        # this is not necessary, since you care only about who has the most of your cards in your hand
+        # otherwise there is either 2 other of this card or just one left.
 
-        return target_player, target_card
         # among the cards in your hand, see which ones are more common (max count)
         common_cards = []
         max_count = 0
@@ -72,20 +73,39 @@ class EpistPlayer(Player):
                 max_count = model.card_counts[card]
             elif model.card_counts[card] == max_count:
                 common_cards.append(card)
+        print("Common cards: " + str(common_cards))
+        return common_cards
 
-        # choose a player that is most likely to have a card that you need
-        # based on the possible worlds in the restricted model
-        target_player = None
-        max_w_cards = 0
-        for player in active_players:
-            w_cards = 0
-            for world in model.worlds:
-                for card in common_cards:
-                    if card in world.agent_hands[player.id]:
-                        w_cards += 1
-            if w_cards > max_w_cards:
-                max_w_cards = w_cards
+    def choose_player(self, possible_players, model):
+        # choose the player that 1) has the most of your hand and 2) has the most cards
+        target_player = possible_players[0]
+        accessible_worlds = model.get_accessible_worlds(self)
+        cards_common_with = {player.id: 0 for player in possible_players}
+        print("Accessible worlds: " + str(accessible_worlds))
+        print("Possible worlds:")
+        for world in model.worlds:
+            print(world)
+        for player in possible_players:
+            for world in accessible_worlds:
+                # check in every world how many cards the player has common with each other player
+                cards_common_with[player.id] += len(set(world.agent_hands[player.id]).intersection(set(self.hand)))
+        print("Cards common with: " + str(cards_common_with))
+        # choose the player with the most cards in common with you
+        max_common = 0
+        for player in possible_players:
+            if cards_common_with[player.id] > max_common:
                 target_player = player
+                max_common = cards_common_with[player.id]
+            elif cards_common_with[player.id] == max_common:
+                # if there is a tie, choose the player with the most cards
+                if len(player.hand) > len(target_player.hand):
+                    target_player = player
+        return target_player
+
+    # your turn, choose a player and which card to take
+    def choose_card(self, possible_players, model):
+        target_player = self.choose_player(possible_players, model)
+        print("Target player: " + str(target_player.id))
 
         available_cards = target_player.present_hand()
         target_card = random.randint(0, available_cards - 1)

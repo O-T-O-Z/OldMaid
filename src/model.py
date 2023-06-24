@@ -71,19 +71,18 @@ class Model:
         - contain pairs
         - are identical: 1,2 <-> 2,1
         """
-        # TODO
         card_perms = itertools.permutations(self.cards)
         worlds = []
         for perm in list(card_perms):
             hands = []
             card_idx = 0
-            for hand_size in self.hand_sizes.values():
+            for i, hand_size in self.hand_sizes.items():
                 hand = set(perm[card_idx:(card_idx + hand_size)])
                 card_idx += hand_size
                 # We know the hand size, so if the permutation has fewer cards, it is not a possibility
                 if len(hand) < hand_size:
                     break
-                hands.append(hand)
+                hands.append((i, hand))
             else:
                 if hands not in worlds:
                     worlds.append(hands)
@@ -91,10 +90,5 @@ class Model:
         self.worlds = [World(w) for w in worlds]
 
     # returns a list of worlds that an agent can access from the given world
-    def get_accessible_worlds(self, world_from, agent):
-        accessible_worlds = []
-        for world_to in self.worlds:
-            if self.exists_relation(agent, world_from, world_to):
-                accessible_worlds.append(world_to)
-
-        return accessible_worlds
+    def get_accessible_worlds(self, agent):
+        return [world for world in self.worlds if world.agent_hands[agent.id] == set(agent.hand)]

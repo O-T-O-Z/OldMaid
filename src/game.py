@@ -4,7 +4,7 @@ from players import RandomPlayer, EpistPlayer
 from deck import Deck
 from model import Model
 
-card_types = ["J", "Q", "K", "1", "2", "3", "4"]
+card_types = ["J", "Q", "K", "A", "B"]
 
 class Game:
 
@@ -21,10 +21,10 @@ class Game:
         while not deck.is_empty():
             self.players[idx].receive_card(deck.draw())
             idx = (idx + 1) % num_players
-        for player in self.players:
-            if not player.hand:
-                print(f"Player {player.id} is out!")
-                self.players.pop(player.id)
+        
+        # remove players with empty hands
+        self.players = [player for player in self.players if player.hand]
+
         # init model
         self.model = Model()
         self.model.update_model(self.players)
