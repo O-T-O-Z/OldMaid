@@ -1,6 +1,6 @@
 import random
 
-from player import Player
+from players import RandomPlayer, EpistPlayer
 from deck import Deck
 from model import Model
 
@@ -12,7 +12,7 @@ class Game:
         # init players
         self.players = []
         for i in range(num_players):
-            player = Player(player_id=i)
+            player = RandomPlayer(player_id=i)
             self.players.append(player)
 
         # init deck and hand out cards
@@ -38,7 +38,7 @@ class Game:
             print(f"Player {active_player.id}'s turn")
             # current player chooses a move
             possible_players = [player for player in self.players if player.id != active_player.id]
-            target_player, chosen_card = active_player.choose_card(possible_players, self.model)
+            target_player, chosen_card = active_player.choose_card(possible_players)
 
             # the move gets executed, some announcements should happen here
             active_player.receive_card(target_player.give_card(chosen_card))
