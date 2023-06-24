@@ -50,6 +50,7 @@ class Game:
     def run(self):
         active_player = random.choice(self.players)
 
+        turns_taken = 0
         while True:
             if self.verbose:
                 print("=====================================")
@@ -88,6 +89,9 @@ class Game:
                     break
             else:
                 active_player = next(filter(lambda x: x.id != active_player.id, self.players))
+
+            if turns_taken == 1000:
+                print("Something went wrong, game lasting for over 1000 turns!")
 
         loser = self.players[0].id
         if self.verbose:

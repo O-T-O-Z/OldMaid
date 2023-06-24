@@ -20,11 +20,14 @@ class EpistemicPlayer(LogicPlayer):
     def check_bonus_conditions(self, wff, drawing_player, giving_player, current_players, discarded):
         if isinstance(wff, Or):
             # remove positive epistemic facts about the giving player
-            if self.id not in [drawing_player.id, giving_player.id] and wff.owner_id() == giving_player.id and not wff.wffs[0].knows_neg():
+            if wff.wffs[0].agent_id not in [agent.id for agent in current_players]:
+                return True
+            elif self.id not in [drawing_player.id, giving_player.id] and wff.owner_id() == giving_player.id and not wff.wffs[0].knows_neg():
                 return True
             # remove negative facts about the drawing player
             elif self.id not in [drawing_player.id, giving_player.id] and wff.owner_id() == drawing_player.id and wff.wffs[0].knows_neg() and not discarded:
                 return True
+        
 
 
     def add_epistemic_knowledge(self, drawing_player, giving_player, current_players, discarded, card_types):

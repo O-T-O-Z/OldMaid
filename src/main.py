@@ -2,7 +2,7 @@ import argparse
 
 from game import Game
 
-PROGRESS_PERIOD = 20
+PROGRESS_PERIOD = 50
 
 def parse_args():
     parser = argparse.ArgumentParser()
