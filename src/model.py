@@ -89,6 +89,19 @@ class Model:
  
         self.worlds = [World(w) for w in worlds]
 
+    # returns a list of worlds that an agent considers to be possible as the true state
+    def get_possible_worlds(self, agent, knowledge):
+        possible_worlds = [world for world in self.worlds if world.agent_hands[agent.id] == set(agent.hand)]
+        final_worlds = []
+        for world in possible_worlds:
+            # every known sentence should be true in a world for the agent to consider it possible
+            for sentence in knowledge:
+                if not sentence.eval(world, self):
+                    break
+            else:
+                final_worlds.append(world)
+        return final_worlds
+
     # returns a list of worlds that an agent can access from the given world
-    def get_accessible_worlds(self, agent):
-        return [world for world in self.worlds if world.agent_hands[agent.id] == set(agent.hand)]
+    def get_accessible_worlds(self, world_from, agent):
+        return [world for world in self.worlds if self.exists_relation(agent, world_from, world)]
