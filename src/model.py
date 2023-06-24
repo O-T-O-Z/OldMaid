@@ -55,7 +55,12 @@ class Model:
 
     # an agent cannot distinguish worlds where the agent's own hand is the same
     def exists_relation(self, agent_id, world1, world2):
-        return world1.agent_hands[agent_id] == world2.agent_hands[agent_id]
+        try:
+            return world1.agent_hands[agent_id] == world2.agent_hands[agent_id]
+        except:
+            print(f"tried to check for relations of agent {agent_id}")
+            print(f"w1 only has agents {world1.agent_hands.keys()} and w2 only has agents {world2.agent_hands.keys()}")
+            exit()
         
 
     def create_possible_worlds(self):

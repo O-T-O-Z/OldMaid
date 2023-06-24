@@ -18,20 +18,26 @@ class LogicPlayer(Player):
                 break
         self.knowledge.append(fact)
     
+
     def prune_current_knowledge(self, drawing_player, giving_player, current_players, discarded):
         new_knowledge = []
-        for atom in self.knowledge:
+        for wff in self.knowledge:
             # remove facts about players that are no longer in the game
-            if atom.agent_id not in [p.id for p in current_players]:
+            if wff.owner_id() not in [p.id for p in current_players]:
                 continue
             # remove positive facts about the giving player
-            elif self.id not in [drawing_player.id, giving_player.id] and atom.agent_id == giving_player.id and not isinstance(atom, Neg):
+            elif self.id not in [drawing_player.id, giving_player.id] and wff.owner_id() == giving_player.id and not isinstance(wff, Neg):
                 continue
             # remove negative facts about the drawing player
-            elif self.id not in [drawing_player.id, giving_player.id] and atom.agent_id == drawing_player.id and isinstance(atom, Neg) and not discarded:
+            elif self.id not in [drawing_player.id, giving_player.id] and wff.owner_id() == drawing_player.id and isinstance(wff, Neg) and not discarded:
                 continue
-            new_knowledge.append(atom)
+            elif self.check_bonus_conditions(wff, drawing_player, giving_player, current_players, discarded):
+                continue
+            new_knowledge.append(wff)
         return new_knowledge
+
+    def check_bonus_conditions(self, wff, drawing_player, giving_player, current_players, discarded):
+        return False
 
     def add_basic_knowledge(self, drawing_player, giving_player, current_players, discarded):
         fact = None
@@ -56,7 +62,8 @@ class LogicPlayer(Player):
             fact = Neg(Atom(giving_player.id, discarded))
             self.remove_contradictions(fact)
 
-    def update_knowledge(self, drawing_player, giving_player, current_players, discarded):
+    # update the knowledge of the agent
+    def update_knowledge(self, drawing_player, giving_player, current_players, discarded, card_types):
         self.knowledge = self.prune_current_knowledge(drawing_player, giving_player, current_players, discarded)
         self.add_basic_knowledge(drawing_player, giving_player, current_players, discarded)
 

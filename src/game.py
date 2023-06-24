@@ -4,20 +4,37 @@ from players import RandomPlayer, EpistemicPlayer, LogicPlayer
 from deck import Deck
 from model import Model
 
-card_types = ["J", "Q", "K", "A", "B"]
+CARD_TYPES = ["J", "Q", "K", "A"]
 
 class Game:
 
-    def __init__(self, num_players):
+    """
+    Game has 3 conditions:
+    0: basic logical agent playing against random agents
+    1: epistemic agent playing against random agents
+    2: epistemic agent playing against basic logical agents
+    """
+    def __init__(self, num_players, condition=0, verbose=False):
         # init players
+        if condition not in [0, 1, 2]:
+            exit("Unknown game setup condition. Choose from 0, 1, and 2")
         self.players = []
-        for i in range(num_players):
-            player = LogicPlayer(player_id=i)
+        self.verbose=verbose
+
+        # determine which kinds of agents will play
+        main_player_class = (LogicPlayer if condition == 0 else EpistemicPlayer)
+        other_player_class = (LogicPlayer if condition == 2 else RandomPlayer)
+
+        # init agents
+        main_player = main_player_class(player_id=0)
+        self.players.append(main_player)
+        for i in range(1, num_players):
+            player = other_player_class(player_id=i)
             self.players.append(player)
 
         # init deck and hand out cards
-        deck = Deck(card_types)
-        idx = 0
+        deck = Deck(CARD_TYPES)
+        idx = random.randint(0, num_players - 1)
         while not deck.is_empty():
             self.players[idx].receive_card(deck.draw())
             idx = (idx + 1) % num_players
@@ -76,5 +93,5 @@ class Game:
 
     def announce_move(self, active_player, target_player, discarded):
         for player in self.players:
-            player.update_knowledge(active_player, target_player, self.players, discarded=discarded)
+            player.update_knowledge(active_player, target_player, self.players, discarded, self.model.card_counts.keys())
 

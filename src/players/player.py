@@ -6,11 +6,12 @@ from abc import ABC, abstractmethod
 
 class Player(ABC):
 
-    def __init__(self, player_id):
+    def __init__(self, player_id, verbose=False):
         self.id = player_id
         self.hand = []
         self.last_given_card = None
         self.knowledge = []
+        self.verbose = verbose
 
     # receive a card and check if you have any pairs
     def receive_card(self, new_card):
