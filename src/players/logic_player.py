@@ -74,7 +74,7 @@ class LogicPlayer(Player):
 
     def choose_player(self, possible_players, model):
         # choose the player that 1) has the most of your hand and 2) has the most cards
-        target_player = possible_players[0]
+        target_choices = [random.choice(possible_players)]
         possible_worlds = model.get_possible_worlds(self, self.knowledge)
         cards_common_with = {player.id: 0 for player in possible_players}
         if self.verbose:
@@ -94,13 +94,16 @@ class LogicPlayer(Player):
         max_common = 0
         for player in possible_players:
             if cards_common_with[player.id] > max_common:
-                target_player = player
+                target_choices = [player]
                 max_common = cards_common_with[player.id]
             elif cards_common_with[player.id] == max_common:
                 # if there is a tie, choose the player with the most cards
-                if len(player.hand) > len(target_player.hand):
-                    target_player = player
-        return target_player
+                if len(player.hand) > len(target_choices[0].hand):
+                    target_choices = [player]
+                else:
+                    # if that ties too, the players have equal preference
+                    target_choices.append(player)
+        return random.choice(target_choices)
 
     # your turn, choose a player and which card to take
     def choose_card(self, possible_players, model):
