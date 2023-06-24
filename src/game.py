@@ -12,7 +12,7 @@ class Game:
         # init players
         self.players = []
         for i in range(num_players):
-            player = EpistemicPlayer(player_id=i)
+            player = LogicPlayer(player_id=i)
             self.players.append(player)
 
         # init deck and hand out cards

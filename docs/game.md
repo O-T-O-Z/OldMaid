@@ -8,6 +8,9 @@ permalink: /game/
 The Old Maid is a card game that dates back to at least 1821[^1]. The goal of the game is to discard all the cards in one's hand by forming pairs of cards which can be discarded. However, there is one odd card, resulting from either removing a queen or jack of clubs or by adding a Joker card. The player that is left with the odd card at the end of the game is called the "old maid" and is the loser of the game. The game can be played with two or more players. 
 ![asd](/assets/img/cards.jpg)
 
+## Research question
+In our study we would then want to investigate whether adding epistemic announcements carries useful information for an agent to perform better in the game of Old Maid.
+
 ## Rules
 
 The rules of the game are as follows:
@@ -19,6 +22,11 @@ The rules of the game are as follows:
 - Each turn, a player must draw a random card from the player on the left.
 - Players without cards in their game leave the game.
 - The player left with the unmatchable card is the "old maid" and is the loser of the game.
+
+## Simplifications
+- We will focus on 3 players and 3 types of cards.
+- We assume the cards are shuffled after each round. 
+- TODO
 
 ## Example
 An example run is illustrated below.

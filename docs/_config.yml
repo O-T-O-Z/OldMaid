@@ -9,6 +9,6 @@ minima:
 header_pages:
   - game.md
   - model.md
-  - additional_model.md
   - results.md
+  - discussion.md
   - references.md

@@ -4,36 +4,43 @@ title: Model
 permalink: /model/
 ---
 
-
-## Simplifications
-There are a couple of simplifications that have to be considered when modeling the Old Maid card game in the context of epistemic logic. To investigate whether the use of higher-order knowledge can be advantageous to not using this knowledge, we assume the following:
-- Knowledge agents can keep track of the hands of the players in the game.
-- Agents will not shuffle their hand, so each agent will be able to keep track of a unique card identifier for each card, even if they do not know its value.
-- We will focus on 3 players and 3 types of cards first.
-
 ## Knowledge representation
-We intend to represent an agent's knowledge by first-order sentences which connect to a unique card identifier to its value. Therefore, an atomic sentence in our model would take the form Is(x, y), where x is a card identifier, and y is a card value. The number of atomic sentences in our model would therefore be _n_*_m_, where _n_ is the number of cards, and _m_ is the number of card values. Unique combinations of these atoms being true would then define unique worlds. However, due to how the decks are constructed, not all combinations are possible, reducing the number of possible worlds significantly.
+### All legal worlds
+Each possible world is defined by all possible combination of cards in the hands of the players. For instance, the following worlds are possible:
 
-Agents would also be able to know composite sentences based on events that happen during the course of the game.
+- Player 1 has a Jack, Player 2 has a Queen, Player 3 has a King
+- Player 1 has a Jack, Player 2 has a King, Player 3 has a Queen
+- Player 1 has a Queen and a King, Player 2 has 2 Jacks, Player 3 has a Queen
+- etc.
 
-## How we use inference
-Our current idea is for agents to remember knowledge of atoms, together with some complex sentences, and use these to infer other relevant sentences. Our current intention is to consider relevant atomic sentences the agent does not yet know, and put their negation along with the known sentences, and solve for satisfiability via the tableaux method.
+### Possible worlds per player
+TODO
+### Accessibility relations
+Every player knows in every state the number of cards in the hands of every player 
+(including themselves). Therefore, only worlds in which the number of cards in the hands of the players is the same are accessible.
 
-### Example:
-Consider a game with 2 card types: Jack and Queen (formally, for all card identifiers x: Is(x, queen) v Is(x, jack)). Player 1 has a Jack, and must draw another one to win the game. They do not know any of the other players' cards. They then observe that PLayer 2 draws a card from Player 3, and subsequently discards two queens. Player 2 still has a card, specifically one with card identifier 1. The discard declares that it is not the case that Is(1, Queen).
+The players also know their own cards. Hence, only the worlds in which the cards in their own hands are the same are accessible. 
 
-Player 1 is curious to know where it can find a Jack, so it will inquire for card IDs it does not know the value of, whether the card is a Jack. It will want to know if it is the case that Is(1, jack). It will put its knowledge, and the negation of its goal in a conjunction, and see if the sentence is satisfiable. In other words, it will solve the tableau with the initial list:
-- Is(1, Queen) v Is(1, Jack)
-- not Is(1, Queen)
-- not Is(1, Jack)
+Once a player draws a card, both the player who drew the card and the player who gave the card know the card that was drawn. Hence, only worlds in which the player who drew the card has the card in their hand are accessible.
 
-It will see that the conjunction is not satisfiable, and conclude that Is(1, Jack), draw that card, and win the game.
+Lastly, when a card is discarded, all players know the card that was discarded. Hence, only worlds in which the discarded cards are not part of the hands of the players are accessible.
 
-Epistemic sentences can be announced as well. For example, when an agent takes a card from another agent, that agent will know that the other agent also knows that card.
+## Incorporating knowledge
+At each step of the game, the agents will use the knowledge they have to infer new knowledge. For instance, if there is an accessible world in which another player has two Queens, but the cards are not discarded, then that world is not possible. Hence, the agent can infer that the other player does not have two Queens.
 
-## Research question
-In our study we would then want to investigate whether adding epistemic announcements carries useful information for an agent to perform better in the game of Old Maid.
+Similarly, if a player B draws a card from a player A and does not discard those in the next step, then player A, who gave the card, knows not only that player B has the card, but also that they only have one of that type. However, in a future round, if another player draws a card from player B, player A will not know which them has the card that was drawn from A, hence new worlds will be accessible for player A.
+### Random Player
+TODO
+### Logic Player
+TODO
+### Epistemic Player
+TODO
 
+## Game run
+TODO
 
-## Experiments
-We will perform multiple experiments in which we play epistemic agents against random players, as well as against non-epistemic logical agents.
+## Experimental setup
+TODO
+
+## Tools
+TODO

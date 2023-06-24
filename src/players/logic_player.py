@@ -13,7 +13,7 @@ class LogicPlayer(Player):
     def remove_contradictions(self, fact):
         # remove facts that are contradicted by the new knowledge
         for i, p in enumerate(self.knowledge):
-            if p.agent_id == fact.agent_id and p.card == fact.card:
+            if (isinstance(p, Neg) or isinstance(p, Atom)) and p.agent_id == fact.agent_id and p.card == fact.card:
                 self.knowledge.pop(i)
                 break
         self.knowledge.append(fact)
