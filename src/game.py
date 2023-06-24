@@ -26,10 +26,10 @@ class Game:
         other_player_class = (LogicPlayer if condition == 2 else RandomPlayer)
 
         # init agents
-        main_player = main_player_class(player_id=0)
+        main_player = main_player_class(player_id=0, verbose=verbose)
         self.players.append(main_player)
         for i in range(1, num_players):
-            player = other_player_class(player_id=i)
+            player = other_player_class(player_id=i, verbose=verbose)
             self.players.append(player)
 
         # init deck and hand out cards
@@ -51,7 +51,8 @@ class Game:
         active_player = random.choice(self.players)
 
         while True:
-            print("=====================================")
+            if self.verbose:
+                print("=====================================")
             # print(f"Player {active_player.id}'s turn")
             # current player chooses a move
             possible_players = [player for player in self.players if player.id != active_player.id]
@@ -59,15 +60,18 @@ class Game:
 
             # the move gets executed, some announcements should happen here
             given_card = target_player.give_card(chosen_card)
-            print(f"Player {active_player.id} received a {given_card} from player {target_player.id}")
+            if self.verbose:
+                print(f"Player {active_player.id} received a {given_card} from player {target_player.id}")
             discarded = active_player.receive_card(given_card)
 
             # check if any players are out
             if len(active_player.hand) == 0:
-                print(f"Player {active_player.id} is out!")
+                if self.verbose:
+                    print(f"Player {active_player.id} is out!")
                 self.players.remove(active_player)
             if len(target_player.hand) == 0:
-                print(f"Player {target_player.id} is out!")
+                if self.verbose:
+                    print(f"Player {target_player.id} is out!")
                 self.players.remove(target_player)
 
             # check if the game is over
@@ -86,7 +90,8 @@ class Game:
                 active_player = next(filter(lambda x: x.id != active_player.id, self.players))
 
         loser = self.players[0].id
-        print(f"Game is over. Player {loser} is the old maid!")
+        if self.verbose:
+            print(f"Game is over. Player {loser} is the old maid!")
 
         return loser
 

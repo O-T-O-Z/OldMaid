@@ -5,8 +5,8 @@ from logic_utils.formulas import *
 
 class LogicPlayer(Player):
 
-    def __init__(self, player_id):
-        super().__init__(player_id)
+    def __init__(self, player_id, verbose=False):
+        super().__init__(player_id, verbose=verbose)
         self.last_given_card = None
         self.knowledge = []
 
@@ -67,25 +67,29 @@ class LogicPlayer(Player):
         self.knowledge = self.prune_current_knowledge(drawing_player, giving_player, current_players, discarded)
         self.add_basic_knowledge(drawing_player, giving_player, current_players, discarded)
 
-        print("Knowledge of player " + str(self.id) + ":")
-        for value in self.knowledge:
-            print(str(value))
+        if self.verbose:
+            print("Knowledge of player " + str(self.id) + ":")
+            for value in self.knowledge:
+                print(str(value))
 
     def choose_player(self, possible_players, model):
         # choose the player that 1) has the most of your hand and 2) has the most cards
         target_player = possible_players[0]
         possible_worlds = model.get_possible_worlds(self, self.knowledge)
         cards_common_with = {player.id: 0 for player in possible_players}
-        print("Accessible worlds: " + str(possible_worlds))
-        print("All worlds:")
+        if self.verbose:
+            print("Accessible worlds: " + str(possible_worlds))
+            print("All worlds:")
 
-        for world in model.worlds:
-            print(world)
+            for world in model.worlds:
+                print(world)
         for player in possible_players:
             for world in possible_worlds:
                 # check in every world how many cards the player has common with each other player
                 cards_common_with[player.id] += len(set(world.agent_hands[player.id]).intersection(set(self.hand)))
-        print("Cards common with: " + str(cards_common_with))
+
+        if self.verbose:
+            print("Cards common with: " + str(cards_common_with))
         # choose the player with the most cards in common with you
         max_common = 0
         for player in possible_players:
@@ -101,7 +105,8 @@ class LogicPlayer(Player):
     # your turn, choose a player and which card to take
     def choose_card(self, possible_players, model):
         target_player = self.choose_player(possible_players, model)
-        print("Target player: " + str(target_player.id))
+        if self.verbose:
+            print("Target player: " + str(target_player.id))
 
         available_cards = target_player.present_hand()
         target_card = random.randint(0, available_cards - 1)

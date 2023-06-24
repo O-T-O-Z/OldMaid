@@ -2,8 +2,8 @@ from .player import Player
 import random
 
 class RandomPlayer(Player):
-    def __init__(self, player_id):
-        super().__init__(player_id)
+    def __init__(self, player_id, verbose=False):
+        super().__init__(player_id, verbose=verbose)
 
     # your turn, choose a player and which card to take
     def choose_card(self, active_players, model):

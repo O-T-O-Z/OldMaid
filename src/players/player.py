@@ -18,7 +18,8 @@ class Player(ABC):
         for idx, card in enumerate(self.hand):
             if card == new_card:
                 # match found! discard and announce
-                print(f"Player {self.id} discarded a pair of {new_card}")
+                if self.verbose:
+                    print(f"Player {self.id} discarded a pair of {new_card}")
                 self.hand.pop(idx)
                 return new_card
         self.hand.append(new_card)

@@ -57,7 +57,7 @@ class Neg(Sentence):
             self.card = None
 
     def __str__(self) -> str:
-        return "not " + str(self.pos_formula)
+        return "~(" + str(self.pos_formula) + ")"
 
     def eval(self, world, model=None):
         return 1 - self.pos_formula.eval(world, model)
@@ -80,6 +80,10 @@ class Or(Sentence):
         if isinstance(wffs[0], K):
             self.agent_id = wffs[0].agent_id
 
+    def __str__(self) -> str:
+        sentence_str = ''.join([str(wff) + ' v ' for wff in self.wffs])
+        return sentence_str[:-3]
+
     def eval(self, world, model=None):
         for wff in self.wffs:
             if wff.eval(world, model):
@@ -99,6 +103,9 @@ class K(Sentence):
         self.assert_is_wff(formula)
         self.formula = formula
         self.agent_id = agent_id
+
+    def __str__(self) -> str:
+        return "K_" + str(self.agent_id) + "(" + str(self.formula) + ")"
 
     def eval(self, world, model):
         accessible_worlds = model.get_accessible_worlds(world, self.agent_id)

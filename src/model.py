@@ -25,24 +25,23 @@ import numpy as np
 
 class Model:
 
-    def __init__(self):
+    def __init__(self, verbose=False):
         self.cards = [] # [card1, card2, ...]
         self.card_counts = {} # {card_type: count}
         self.worlds = [] # {world_id: [p1_state, p2_state, ...]}
         self.hand_sizes = {} # {player_id: hand_size}
+        self.verbose = verbose
     
     def update_model(self, players):
-        print(f"True world: {[(player.id, player.hand) for player in players]}")
+        if self.verbose:
+            print(f"True world: {[(player.id, player.hand) for player in players]}")
         # count all cards and types in the game
         self.count_cards(players)
-        # print(f"Card counts: {self.card_counts}")
 
         # these are the possible worlds
         self.create_possible_worlds()
-        # print("Possible worlds:")
-        # for world in self.worlds:
-        #     print(world)
 
+    # count how many instances of each card value there are in play
     def count_cards(self, players):
         self.card_counts = {}
         self.cards = []
