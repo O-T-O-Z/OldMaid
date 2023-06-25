@@ -15,6 +15,3 @@ The loss rate per condition over the same 5000 games and 5 runs can be found in 
 ![boxplot](/assets/img/boxplot.png)
 
 Here, the differences between the conditions are slightly more pronounced. The Epistemic agent wins, on average, 34.5% of the games against the Logic agents. The Logic agent wins in 31.7% of the games against Random agents, while the Epistemic agent wins in 32.5% of the games against the Random agents over 5 runs. These results are close to random win chance (33%). According to our observed results, it appears that adding epistemic knowledge to the agents does not impove performance.
-
-# Discussion
-
