@@ -1,5 +1,6 @@
 # The Old Maid Logic Project
 This is the GitHub repository of our Logical Aspects of Multi-Agent Systems project into the card game "The Old Maid".
+The website for this project is available at https://o-t-o-z.github.io/OldMaid/.
 
 This project is done by Andreea Tudor, Nora Majeris, and Ömer Tarik Özyilmaz (group 2).
 
