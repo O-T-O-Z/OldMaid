@@ -1,6 +1,5 @@
 import itertools
 from logic_utils.world import World
-import numpy as np
 # Example:
 # 3 players, 3 card types
 # player 1: 1, 2, 1, 3 

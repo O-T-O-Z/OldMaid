@@ -4,19 +4,15 @@ title: Results
 permalink: /results/
 ---
 
-Three experimental setups were run for 5000 games, and the loser was recorded for each game. Each experimental condition had a 'main' agent whose loss rate was calculated over the 5000 games. The results are as follows:
+Three experimental setups were run for 5000 games, and the loser was recorded for each game. Each experimental condition had a 'main' agent whose loss rate was calculated over the 5000 games. This is repeated 5 times to obtain a mean and standard deviation per condition. The results of the number of lost games per agent are illustrated in the figure below.
 
-condition 0: basic logical agent plays against random agents
-logical agent's loss rate: 0.31
-loss histogram: (1550, 1811, 1639), where the first value is for the logical agent
+![barplot](../src/plotting/barplot.png)
 
-condition 1: epistemic agent plays against random agents
-epistemic agent's loss rate: 0.3132
-loss histogram: (1566, 1841, 1593), where the first value is for the epistemic agent
+One can observe that in cases of the Logic- and the Epistemic agents against the Random agents, the second agent loses more games than the first and third agent. Furthermore, there are small differences found between the first and third agent in all three conditions.
 
-condition 2: epistemic agent plays against basic logical agents
-epistemic agent's loss rate: 0.3484
-loss histogram: (1742, 1695, 1563), where the first value 
+The loss rate per condition over the same 5000 games and 5 runs can be found in the figure below.
+![boxplot](../src/plotting/boxplot.png)
+Here, the differences between the conditions are slightly more pronounced. The Epistemic agent wins, on average, 34.5% of the games against the Logic agents. The Logic agent wins in 31.7% of the games against Random agents, while the Epistemic agent wins in 32.5% of the games against the Random agents over 5 runs. These results are close to random win chance (33%). According to our observed results, it appears that adding epistemic knowledge to the agents does not impove performance.
 
-It appears that both the agents which use basic logical reasoning, and the agents which use both basic logic and epistemic reasoning are both able to slightly outperform the random agents. However, according to our observed results, it appears that adding epistemic knowledge to the agents does not impove performance.
+# Discussion
 

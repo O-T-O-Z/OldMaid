@@ -1,5 +1,3 @@
-import random
-
 from logic_utils.formulas import *
 from logic_utils.world import *
 from abc import ABC, abstractmethod
