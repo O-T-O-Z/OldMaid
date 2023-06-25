@@ -8,7 +8,7 @@ Three experimental setups were run for 5000 games, and the loser was recorded fo
 
 ![barplot](/assets/img/barplot.png)
 
-One can observe that in cases of the Logic- and the Epistemic agents against the Random agents, the second agent loses more games than the first and third agent. Furthermore, there are small differences found between the first and third agent in all three conditions.
+One can observe that in cases of the Logic and the Epistemic agents against the Random agents, the second agent loses more games than the first and third agent. Furthermore, there are small differences found between the first and third agent in all three conditions.
 
 The loss rate per condition over the same 5000 games and 5 runs can be found in the figure below.
 

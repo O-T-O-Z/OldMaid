@@ -19,7 +19,9 @@ worlds are legal:
 - Player 1 has a Queen and a King, Player 2 has a Jack, Player 3 has a Jack
 
 ### Possible worlds per player
-From each world, each player has a set of accessible worlds, which are the worlds that the player considers possible if the first world were the true state. That is defined by the set of legal worlds in which the player has the same cards in their hand.
+From each world, each player has a set of accessible worlds, which are the worlds 
+that the player considers possible if the first world was the true state. 
+That is defined by the set of legal worlds in which the player has the same cards in their hand.
 An agent cannot differentiate between two worlds in which they have the same hand without
 additional knowledge. However, since they know their own hand, the model can be restricted
 to only the worlds in which the player has the same hand. The player's goal is to reason about the true state. They know what their hand is in the true state, meaning they can narrow down the set of possible worlds by only considering those where their hand is correct.
@@ -120,7 +122,7 @@ Player 0 discarded a pair of Q
 Player 1 discarded a pair of A
 Player 2 discarded a pair of A
 ```
-Since two pairs of A's were discarded, this card type is no longer in the deck.
+Since two pairs of Aces were discarded, this card type is no longer in the deck.
 Then, the game starts, and the players take turns in drawing a card from another player.
 The order of the players is determined randomly at the beginning of the game, 
 and player 2 is the first to draw a card:
@@ -142,7 +144,7 @@ The accessible worlds are restricted by the number of cards in each player's han
 as well as the number of each card type in the deck. Player 0 has 3 cards,
 and there are only 3 different card types in the game, hence the hand of player 0 
 is known to be {K, Q, J}. While player 0 cannot yet distinguish between the worlds
-in which player 1 has a K and player 2 has a K, players 1 and 2 can, as they know 
+in which player 1 has a King and player 2 has a King, players 1 and 2 can, as they know 
 their own hand. Hence, player 2 chooses player 0 to draw a card from, as they have 
 a higher chance of drawing a card that is in their hand. The card drawn is a Jack.
 
@@ -191,6 +193,8 @@ Then, the game ends, and the player left with the Queen (Old Maid) loses the gam
 ## Experimental setup
 In order to test whether the epistemic knowledge is useful in the game, we run a series of experiments.
 Namely, each experiment consists of 5000 games, and the number of wins for each player type is recorded.
+Each experiment is repeated 5 times.
+
 The conditions of the experiments are the following:
 - a basic logical player against two random players
 - an epistemic player against two random players
