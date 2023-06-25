@@ -19,11 +19,10 @@ worlds are legal:
 - Player 1 has a Queen and a King, Player 2 has a Jack, Player 3 has a Jack
 
 ### Possible worlds per player
-Given the true state of the game, each player has a set of possible worlds. That is defined by
-the set of legal worlds in which the player has the same cards in their hand.
+From each world, each player has a set of accessible worlds, which are the worlds that the player considers possible if the first world were the true state. That is defined by the set of legal worlds in which the player has the same cards in their hand.
 An agent cannot differentiate between two worlds in which they have the same hand without
 additional knowledge. However, since they know their own hand, the model can be restricted
-to only the worlds in which the player has the same hand.
+to only the worlds in which the player has the same hand. The player's goal is to reason about the true state. They know what their hand is in the true state, meaning they can narrow down the set of possible worlds by only considering those where their hand is correct.
 
 By these means, assuming the true hand of Player 1 in the example above is a Jack and a Queen,
 the possible worlds for Player 1 are:
@@ -102,7 +101,7 @@ and then further uses it when it is time to choose a player to draw a card from.
 Let us consider a game with 3 players, 4 card types, as it follows:
 - Player 1 is an Epistemic Player
 - Players 2 and 3 are a Logic Player
-- the deck contains 4 A's, 4 Jacks, 3 Queens, and 4 Kings
+- the deck contains 4 Aces, 4 Jacks, 3 Queens, and 4 Kings
 
 As the game starts, the deck is shuffled, and the cards are dealt to the players.
 Then, the players can immediately discard any pairs they have in their hands:
