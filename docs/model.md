@@ -76,7 +76,7 @@ The agents using this knowledge type can infer the knowledge of the other player
 they are not involved in a game action. For instance, if a player A draws a card from player B,
 another Player C can infer that knowledge both player A and player B have about the card that was drawn.
 Since the card type is unknown, the knowledge about the other agents' new knowledge is 
-represented by a set of disjunctions, one for each possible card type. <span style="color:red"> *TODO: K operator* </span>
+represented by a set of disjunctions, one for each possible card type. To this end, we make use of the K_i operator, as well as the disjunction connective to represent epistemic sentences. Whenever a card trade happens between two agents, and the drawing player does not discard the card, every player not involved in the trade is able to determine that the giving player knows that the receiving player has that card, and that the receiving player knows that the giving player does not have that card. Combined with other knowledge, it may be possible that these facts may help narrow down the list of possible worlds, as well as allow the agents to make use of the full Kripke model.
 
 ## Agents and strategies
 ### Random Player
