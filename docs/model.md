@@ -213,4 +213,4 @@ the experiments.
 The communication between the team members was done via Discord, and the code was shared via GitHub.
 The CodeWithMe extension was used for pair programming.
 
-[^2] [Ditmarsch, Hans van, et al. *Dynamic Epistemic Logic*. Springer, 2007.](https://rug.on.worldcat.org/oclc/187994683)
+[^2]: [Ditmarsch, Hans van, et al. *Dynamic Epistemic Logic*. Springer, 2007.](https://rug.on.worldcat.org/oclc/187994683)
