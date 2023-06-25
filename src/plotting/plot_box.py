@@ -19,5 +19,5 @@ print(f"Condition 0: mean {np.mean(condition0)}, sd {np.std(condition0)}")
 print(f"Condition 1: mean {np.mean(condition1)}, sd {np.std(condition1)}")
 print(f"Condition 2: mean {np.mean(condition2)}, sd {np.std(condition2)}")
 
-plt.savefig('boxplot.png')
+plt.savefig('../../docs/assets/img/boxplot.png')
 plt.show()
