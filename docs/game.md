@@ -24,9 +24,9 @@ The rules of the game are as follows:
 - The player left with the unmatchable card is the "old maid" and is the loser of the game.
 
 ## Simplifications
-- We will focus on 3 players and 3 types of cards.
+- We will focus on 3 players and 4 types of cards.
 - We assume the cards are shuffled after each round. 
-- TODO
+- We choose the player to pick from, rather than picking from a fixed player to implement strategy.
 
 ## Example
 An example run is illustrated below.
