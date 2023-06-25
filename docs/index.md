@@ -19,4 +19,4 @@ The project is structured as follows:
 - **Discussion**: the discussion of our results.
 - **References**: the references used for this project.
 
-The code can be found at the ![GitHub repository](https://github.com/O-T-O-Z/OldMaid).
+The code can be found at the [GitHub repository](https://github.com/O-T-O-Z/OldMaid).

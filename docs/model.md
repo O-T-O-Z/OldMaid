@@ -215,7 +215,7 @@ in the `logic_utils/formulas.py` file.
 
 The `players` directory contains the implementation of the three player types, as well as the `Player` class.
 The remaining files in the `src` directory contain the implementation of the game and model, and the code for running
-the experiments. More information on running the code, can be found in the README of the ![GitHub repository](https://github.com/O-T-O-Z/OldMaid).
+the experiments. More information on running the code, can be found in the README of the [GitHub repository](https://github.com/O-T-O-Z/OldMaid).
 
 ### Communication Tools
 The communication between the team members was done via Discord, and the code was shared via GitHub.
