@@ -34,6 +34,7 @@ However, in the same example, if the hand of Player two is a Jack, then the poss
 - Player 1 has a Jack and a King, Player 2 has a Jack, Player 3 has a Queen
 - Player 1 has a Queen and a King, Player 2 has a Jack, Player 3 has a Jack
 
+
 ### Accessibility relations
 Every player knows in every state the number of cards in the hands of every player 
 (including themselves). Therefore, only worlds in which the number of cards in the
@@ -55,9 +56,16 @@ For instance, if there is an accessible world in which another player has two Qu
 but the cards are not discarded, then that world is not legal. Hence, the agent can 
 infer that the other player does not have two Queens. Moreover, whenever a set of cards
 is discarded, the legal worlds are updated to exclude those cards from the hands of the players.
-By these means, discarding cards is implemented as a public announcement. 
-<span style="color:red"> *TODO: public announcement* (maybe move this separately in a
-subsection about updating the model worlds) </span>
+By these means, discarding cards is implemented as a public announcement[^2].
+
+When an agent announces what pair of cards is discarded, which is always truthful,
+the Kripke model is updated to exclude those cards from the hands of the players.
+Moreover, the other agents can infer that the agent who discarded the cards does not have
+that type of card in their hand in some cases. For instance, consider a game state where
+Player 1 draws a card from Player 2, and the other players do not have any knowledge about
+the cards in the hands of Player 1 and Player 2. If Player 1 discards a pair of cards, 
+then the other players now know that neither Player 1 nor Player 2 have that card type in their hands. 
+
 
 We define two types of knowledge that different agents can use, namely: basic logical knowledge,  
 and epistemic knowledge. The basic logical knowledge is the knowledge that can be inferred
@@ -204,3 +212,5 @@ the experiments.
 ### Communication Tools
 The communication between the team members was done via Discord, and the code was shared via GitHub.
 The CodeWithMe extension was used for pair programming.
+
+[^2] [Ditmarsch, Hans van, et al. *Dynamic Epistemic Logic*. Springer, 2007.](https://rug.on.worldcat.org/oclc/187994683)
